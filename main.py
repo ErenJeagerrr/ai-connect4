@@ -94,8 +94,9 @@ def start_screen():
     screen.blit(title_surface, title_rect)
 
     # 绘制按钮
-    single_button_rect = draw_button("Single Player (AI)", SCREEN_WIDTH / 2, 250, RED)
-    multi_button_rect = draw_button("Two Player", SCREEN_WIDTH / 2, 350, BLUE)
+    single_button_rect = draw_button("Single Player (Minimax)", SCREEN_WIDTH / 2, 250, RED)
+    mcts_button_rect = draw_button("Single Player (MCTS)", SCREEN_WIDTH / 2, 350, GREY_DARK)
+    multi_button_rect = draw_button("Two Player", SCREEN_WIDTH / 2, 450, BLUE)
 
     pygame.display.update()
 
@@ -107,12 +108,22 @@ def start_screen():
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                # 检查是否点击了单人游戏按钮
+                # 检查是否点击了 Minimax 模式按钮
                 if single_button_rect.collidepoint(event.pos):
-                    print("Starting Single Player (AI)...")
-                    transition_screen("Loading Single Player (AI) Mode...")
+                    print("Starting Single Player (Minimax)...")
+                    transition_screen("Loading Single Player (Minimax) Mode...")
                     try:
                         subprocess.run([sys.executable, "connect_4_with_ai.py"])
+                    except Exception as e:
+                        print(f"Error: {e}")
+                    pygame.quit()
+                    sys.exit()
+                # 检查是否点击了 MCTS 模式按钮
+                elif mcts_button_rect.collidepoint(event.pos):
+                    print("Starting Single Player (MCTS)...")
+                    transition_screen("Loading Single Player (MCTS) Mode...")
+                    try:
+                        subprocess.run([sys.executable, "connect_4_with_ai_MCTS.py"])
                     except Exception as e:
                         print(f"Error: {e}")
                     pygame.quit()
