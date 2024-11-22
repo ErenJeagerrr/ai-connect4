@@ -238,7 +238,7 @@ def mutate(individual, mutation_rate, valid_locations):
     return individual
 
 
-def genetic_algorithm(board, piece, pop_size=20, generations=100, mutation_rate=0.1):
+def genetic_algorithm(board, piece, pop_size=20, generations=50, mutation_rate=0.1):
     population = initialize_population(pop_size, board)
     valid_locations = get_valid_locations(board)
 
